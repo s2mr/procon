@@ -7,29 +7,40 @@ class Main {
 		String Sd = scanner.nextLine();
 		String T = scanner.nextLine();
 		
-		
-		if ( hasStr(Sd, T) ) {
-			char start = T.charAt(0);
+		for (int i=0; i<Sd.length(); i++) {
+			String SdCopy = Sd;
 			
-			char arr[] = new char[T.length()-1];
-			java.util.Arrays.fill(arr, '?');
-			String q = new String(arr);
+			boolean isFind = false;
+			for (int ti=0; ti<T.length(); ti++) {
+				// System.out.println(String.format("i: %d, ti: %d", i, ti));
+				char c = SdCopy.charAt(i+ti);
+				char ct = T.charAt(ti);
+				
+				// System.out.println(String.format("c: %c, ct: %c", c, ct));
+				
+				if(c=='?') {
+					StringBuilder sb = new StringBuilder(SdCopy);
+					sb.setCharAt(i+ti,ct);
+					SdCopy = sb.toString();
+					// System.out.println(SdCopy);
+				} else if(c==ct) {
+				} else {
+					break;
+				}
+				
+				if (ti==T.length()-1) {
+					isFind = true;
+				}
+			}
 			
-			Sd = Sd.replace(String.valueOf(start)+q, T);
-		} else {
-			System.out.println("UNRESTORABLE");
-			return;
+			if (isFind) {
+				//正解を見つけた
+				SdCopy = SdCopy.replace('?', 'a');
+				System.out.println(SdCopy);
+				return;
+			}
 		}
 		
-		Sd = Sd.replace('?', 'a');
-		
-		System.out.println(Sd);
-	}
-	
-	static boolean hasStr(String str, String T) {
-		char c = T.charAt(0);
-		int index =  str.indexOf(c);
-		
-		return str.length() > index + T.length() - 1;
+		System.out.println("UNRESTORABLE");
 	}
 }
