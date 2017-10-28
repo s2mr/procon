@@ -12,7 +12,11 @@ class Main {
 			
 			boolean isFind = false;
 			for (int ti=0; ti<T.length(); ti++) {
+				if (Sd.length()-1 < i+ti) {
+					break;
+				}
 				// System.out.println(String.format("i: %d, ti: %d", i, ti));
+				
 				char c = SdCopy.charAt(i+ti);
 				char ct = T.charAt(ti);
 				
